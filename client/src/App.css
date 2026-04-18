@@ -1,0 +1,525 @@
+/* =========================
+   GRUNDINSTÄLLNINGAR & UTILITIES
+========================= */
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  font-family: var(--font-family, 'Outfit', Arial, sans-serif);
+}
+
+body {
+  background: var(--bg-gradient-start, #111116);
+  color: var(--text-main, #ffffff);
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* =========================
+   NAVBAR (Glassmorphism)
+========================= */
+.custom-navbar {
+  background: rgba(15, 15, 20, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.custom-navbar .navbar-brand {
+  color: var(--primary, #ff7a00);
+  font-weight: 800;
+  font-size: 1.8rem;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+}
+
+.custom-navbar .navbar-brand:hover {
+  color: var(--primary-hover, #ffa64d);
+  text-shadow: 0 0 10px rgba(255, 122, 0, 0.4);
+}
+
+.custom-navbar .nav-link {
+  color: #e0e0e0;
+  font-weight: 500;
+  margin-left: 1.2rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.custom-navbar .nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary, #ff7a00);
+  transition: width 0.3s ease;
+}
+
+.custom-navbar .nav-link:hover::after,
+.custom-navbar .nav-link.active::after {
+  width: 100%;
+}
+
+.custom-navbar .nav-link:hover,
+.custom-navbar .nav-link.active {
+  color: #fff;
+}
+
+/* =========================
+   HERO / HOME
+========================= */
+.hero-content {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(10, 10, 15, 0.7), rgba(15, 15, 20, 0.85)),
+    url("/imges/wood.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 5rem 2rem;
+  position: relative;
+}
+
+.restaurant-name {
+  font-size: 6rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.1rem;
+  text-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
+  margin-bottom: 0.5rem;
+  animation: fadeDown 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.restaurant-sub {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary, #ff7a00);
+  text-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.2rem;
+  animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.restaurant-rights {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffc285;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 3rem;
+  opacity: 0.9;
+  letter-spacing: 0.1rem;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeIn 1.5s ease;
+}
+
+.hero-btn {
+  background: linear-gradient(135deg, var(--primary, #ff7a00), #e55c00);
+  color: white;
+  padding: 1.2rem 3rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 2rem;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(255, 122, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(255, 122, 0, 0.5), 0 0 15px rgba(255,122,0,0.3);
+  color: white;
+}
+
+.z-logo {
+  width: 14rem;
+  height: auto;
+  margin-top: 2rem;
+  border-radius: 50%;
+  box-shadow: 0 0 40px rgba(255, 122, 0, 0.2), 0 15px 35px rgba(0,0,0,0.6);
+  border: 2px solid rgba(255,255,255,0.05);
+  transition: transform 0.5s ease;
+}
+
+.z-logo:hover {
+  transform: scale(1.05) rotate(3deg);
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* =========================
+   PAGES GENERAL (Backgrounds)
+========================= */
+.about-page, .menu-page, .product-page, .lunch-page, .admin-page, .singIn-Contaner, .product-info {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(10, 10, 15, 0.8), rgba(20, 20, 30, 0.9)),
+    url("/imges/wood.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  padding: 5rem 2rem;
+  color: white;
+}
+
+.about-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.restaurant-highlight {
+  color: var(--primary, #ff7a00);
+  font-size: 5rem;
+  font-weight: 800;
+  text-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+  margin-bottom: 2rem;
+}
+
+.about-logo {
+  width: 14rem;
+  margin-bottom: 3rem;
+  border-radius: 2rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.about-text {
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1.8;
+  max-width: 800px;
+  color: #e0e0e8;
+  background: rgba(20, 20, 30, 0.6);
+  padding: 3rem;
+  border-radius: 1.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.about-welcome {
+  margin-top: 2.5rem;
+  font-size: 2.2rem;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--primary, #ff7a00);
+}
+
+/* =========================
+   MENU PAGE
+========================= */
+
+
+/* =========================
+   LUNCH PAGE
+========================= */
+.lunch-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 2rem;
+}
+
+.lunch-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--primary, #ff7a00);
+  letter-spacing: 0.05rem;
+  text-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+  margin-bottom: 1rem;
+}
+
+.lunch-text {
+  font-size: 1.3rem;
+  color: #ccc;
+  margin-bottom: 3rem;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  max-width: 600px;
+}
+
+.lunch-list {
+  background: rgba(25, 25, 35, 0.75);
+  backdrop-filter: blur(15px);
+  border-radius: 1.5rem;
+  padding: 2.5rem 1.5rem;
+  max-width: 40rem;
+  width: 100%;
+  margin: 0 auto 2rem auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.lunch-list ul {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.lunch-list li {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem 1.2rem;
+  border-radius: 0.8rem;
+  border-left: 4px solid var(--primary, #ff7a00);
+  font-size: 1.15rem;
+  color: #eee;
+  margin-bottom: 1rem;
+  text-align: left;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.lunch-list li:hover {
+  transform: translateX(5px);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.lunch-list section {
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+  margin-bottom: 2.5rem;
+  transition: transform 0.3s;
+}
+
+.lunch-list section:hover {
+  transform: translateY(-3px);
+}
+
+.lunch-list h3 {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid rgba(255, 122, 0, 0.5);
+  padding-bottom: 0.5rem;
+  text-align: left;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.lunch-page button,
+.btn-nypriss, .btn-nyprodukt, .btn-redigera {
+  background: linear-gradient(135deg, var(--primary, #ff7a00), #e55c00);
+  color: white;
+  border: none;
+  border-radius: 0.8rem;
+  padding: 0.8rem 1.5rem;
+  margin: 0.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.lunch-page button:hover,
+.btn-nypriss:hover, .btn-nyprodukt:hover, .btn-redigera:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255, 122, 0, 0.4);
+  color: white;
+}
+
+.lunch-page input {
+  background: rgba(0,0,0,0.3);
+  color: white;
+  border-radius: 0.8rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  outline: none;
+}
+.lunch-page input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(255, 122, 0, 0.2);
+}
+
+/* =========================
+   SIGN IN / ADMIN
+========================= */
+.singIn-Contaner, .admin-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-signin {
+  background: rgba(30, 30, 40, 0.8);
+  backdrop-filter: blur(20px);
+  color: #fff;
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255,255,255,0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* =========================
+   BOOTSTRAP OVERRIDES
+========================= */
+.btn-success, .btn-primary, .btn-dark, .btn-warning {
+  background: linear-gradient(135deg, var(--primary, #ff7a00), #e55c00) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2) !important;
+  color: white !important;
+  transition: all 0.3s ease !important;
+  border-radius: 0.6rem !important;
+}
+
+.btn-success:hover, .btn-primary:hover, .btn-dark:hover, .btn-warning:hover {
+  box-shadow: 0 6px 15px rgba(255, 122, 0, 0.4) !important;
+  transform: translateY(-2px) !important;
+  color: white !important;
+}
+
+.badge.bg-light, .badge.bg-light.text-dark {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #fff !important;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255,255,255,0.3) !important;
+  font-weight: 500;
+}
+
+.alert-success {
+  background: rgba(40, 167, 69, 0.8) !important;
+  color: white !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2) !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
+}
+
+/* =========================
+   RESPONSIVE - GLOBAL
+========================= */
+@media (max-width: 1100px) {
+  .container, .menu-page, .product-page, .about-page, .lunch-page, .admin-page, .singIn-Contaner {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .restaurant-name { font-size: 4.5rem; }
+  .restaurant-sub { font-size: 1.5rem; }
+  .card-detail {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .restaurant-name {
+    font-size: 3rem;
+  }
+  .restaurant-sub {
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+  }
+  .restaurant-rights {
+    font-size: 1rem;
+  }
+  .z-logo, .about-logo {
+    width: 10rem;
+  }
+  .hero-content {
+    padding: 3rem 1rem;
+  }
+  .about-text {
+    font-size: 1rem;
+    padding: 1.5rem;
+  }
+  .lunch-title, .menu-title {
+    font-size: 2.2rem;
+  }
+  .lunch-list, .form-signin {
+    padding: 1.5rem;
+  }
+  .card-detail-infos {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .rateing, .productDetail-contaner {
+    width: 100%;
+  }
+  .custom-navbar .nav-link {
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .restaurant-name {
+    font-size: 2.2rem;
+  }
+  .restaurant-sub {
+    font-size: 1rem;
+  }
+  .z-logo, .about-logo {
+    width: 8rem;
+  }
+  .hero-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  .lunch-title, .menu-title {
+    font-size: 1.8rem;
+  }
+  .lunch-list li {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+  .form-signin {
+    padding: 1.5rem 1rem;
+  }
+}
