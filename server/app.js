@@ -7,9 +7,6 @@ const app = express();
 
 // Importera rutter enligt arkitekturdiagrammet 
 var productRoutes = require('./routes/productRoutes');
-// var userRoutes = require('./routes/userRoutes'); // Aktivera när du skapat filen 
-var userRoutes = require('./routes/userRoutes');
-var cartRoutes = require('./routes/cartRoutes');
 
 
 // Middleware
@@ -22,10 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // API-rutter enligt specifikation 
-app.use('/api/products', productRoutes); // Hanterar CRUD för produkter 
-// app.use('/api/users', userRoutes); // Hanterar användare och varukorg 
-app.use('/api/users', userRoutes);
-app.use('/api/cart', cartRoutes);
+app.use('/api/products', productRoutes); // Hanterar CRUD för produkter
 // Enkel felhantering 
 app.use((err, req, res, next) => {
   console.error(err.stack);

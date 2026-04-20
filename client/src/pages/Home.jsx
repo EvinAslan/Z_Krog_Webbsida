@@ -12,8 +12,8 @@ export default function Home() {
           <h3 className="restaurant-rights">FULLSTÄNDIGA RÄTTIGHETER</h3>
         </div>
         <div className="hero-buttons">
-         <Link to="/menu" className="hero-btn">Meny</Link>
-         <Link to="/lunch" className="hero-btn">Veckans Lunch</Link>
+         <Link to="/menu" className="hero-btn" onClick={() => { sessionStorage.removeItem('valdKategori'); sessionStorage.removeItem('menyScroll'); sessionStorage.removeItem('lastViewedCategory'); }}>Meny</Link>
+         <a href="#" className="hero-btn" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('open-facebook-modal')); }}>Veckans Lunch</a>
         </div>
 
         <div className="logo-wrapper">

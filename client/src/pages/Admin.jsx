@@ -165,7 +165,6 @@ const Admin = () => {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2>Meny Administration</h2>
         <div>
-          <button className="btn-redigera btn-outline-success me-2" onClick={() => window.location.href = '/lunch?edit=true'}>Redigera Lunchmeny</button>
           <button className="btn-nypriss btn-outline-dark me-2" data-bs-toggle="modal" data-bs-target="#catModal" onClick={() => setEditTarget(null)}>+ Ny Prisklass</button>
           <button className="btn-nyprodukt btn-primary" data-bs-toggle="modal" data-bs-target="#prodModal" onClick={() => setEditTarget(null)}>+ Ny Produkt</button>
         </div>

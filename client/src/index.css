@@ -68,8 +68,11 @@ body {
 .menu-item::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(135deg, rgba(255,122,0,0.1), transparent);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 122, 0, 0.1), transparent);
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -122,16 +125,12 @@ body {
 }
 
 .menu-icon {
-  width: 90px;
-  height: 90px;
+  width: 120px;
+  height: 120px;
   object-fit: contain;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   z-index: 1;
   transition: transform 0.3s ease;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 50%;
-  padding: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 .menu-item:hover .menu-icon {
@@ -167,7 +166,7 @@ body {
   color: var(--text-main);
   padding: 40px 0;
   margin-top: 60px;
-  box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
 }
 
 .footer-title {
@@ -198,14 +197,25 @@ body {
   transform: translateX(3px);
 }
 
-.footer-phone {
+.footer-badge {
   background: var(--glass-bg);
   padding: 8px 15px;
   border-radius: 8px;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   border: 1px solid var(--glass-border);
-  margin: 15px 0;
   font-weight: 600;
+  color: var(--text-main);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  margin: 0;
+}
+
+.footer-badge.interactive:hover {
+  color: var(--primary);
+  border-color: rgba(255, 122, 0, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 /* Pizzor / Categories List */
@@ -223,8 +233,8 @@ body {
 
 .pizza-category:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 15px rgba(255,122,0,0.1);
-  border-color: rgba(255,255,255,0.15);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 122, 0, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .pizza-list {
@@ -246,7 +256,8 @@ body {
 }
 
 .pizza-list li:hover {
-  background: rgba(255, 255, 255, 0.03); /* Endast svag färg vid hovring för att veta vilken rad musen är på */
+  background: rgba(255, 255, 255, 0.03);
+  /* Endast svag färg vid hovring för att veta vilken rad musen är på */
 }
 
 .pizza-header {
@@ -255,7 +266,7 @@ body {
   justify-content: space-between;
   gap: 25px;
   margin-bottom: 25px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 15px;
 }
 
@@ -275,7 +286,7 @@ body {
   padding: 8px 16px;
   border-radius: 8px;
   border: 1px solid rgba(255, 122, 0, 0.4);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .pizza-prices span {
@@ -290,7 +301,7 @@ body {
   object-fit: contain;
   background: rgba(255, 255, 255, 0.95);
   padding: 1rem;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
   border: 2px solid var(--glass-border);
   transition: transform 0.4s ease;
 }
@@ -325,7 +336,7 @@ body {
 
 .card-Menu:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
 .card-Menu .card-info {

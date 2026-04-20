@@ -6,16 +6,14 @@ import { API } from '../utils/api'
 const CART_KEY = 'guestCart'; // localStorage key
 
 const topCategories = [
-    { href: "pizza",        img: "https://cdn-icons-png.flaticon.com/512/1404/1404945.png",     name: "Pizzor"},
-    { href: "hamburgare",   img: "https://cdn-icons-png.flaticon.com/512/3075/3075977.png",     name: "Hamburgare" },
-    { href: "kebabratter",  img: "https://cdn-icons-png.flaticon.com/512/706/706893.png",       name: "Kebabrätter" },
-    { href: "alacarte",     img: "https://cdn-icons-png.flaticon.com/512/11790/11790156.png",   name: "À la carte" },
-    { href: "rullar",       img: "https://cdn-icons-png.flaticon.com/512/8616/8616731.png",     name: "Rullar" },
-    { href: "salad",        img: "https://cdn-icons-png.flaticon.com/512/2515/2515183.png",     name: "Salad" },
-    { href: "husman",       img: "https://cdn-icons-png.flaticon.com/512/3480/3480823.png",     name: "Husman" },
-    { href: "pastaratter",  img: "https://cdn-icons-png.flaticon.com/512/4465/4465494.png",     name: "Pastarätter" },
-    { href: "dryck",        img: "https://cdn-icons-png.flaticon.com/512/2738/2738730.png",     name: "Våra drycker" },
-    { href: "extra",        img: "https://cdn-icons-png.flaticon.com/512/3082/3082037.png",     name: "Extra tillägg" },
+    { href: "pizza", img: "https://cdn-icons-png.flaticon.com/512/1404/1404945.png", name: "Pizzor" },
+    { href: "hamburgare", img: "https://cdn-icons-png.flaticon.com/512/3075/3075977.png", name: "Hamburgare" },
+    { href: "kebabratter", img: "https://cdn-icons-png.flaticon.com/512/706/706893.png", name: "Kebabrätter" },
+    { href: "alacarte", img: "https://cdn-icons-png.flaticon.com/512/11790/11790156.png", name: "À la carte" },
+    { href: "rullar", img: "https://cdn-icons-png.flaticon.com/512/8616/8616731.png", name: "Rullar" },
+    { href: "salad", img: "https://cdn-icons-png.flaticon.com/512/2515/2515183.png", name: "Salad" },
+    { href: "husman", img: "https://cdn-icons-png.flaticon.com/512/3480/3480823.png", name: "Husman" },
+    { href: "pastaratter", img: "https://cdn-icons-png.flaticon.com/512/4465/4465494.png", name: "Pastarätter" },
 ]
 
 // --- localStorage helpers ---
@@ -29,11 +27,13 @@ const loadCart = () => {
 const saveCart = (cart) => {
     try {
         localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    } catch {}
+    } catch { }
 };
 
 export default function Meny() {
-    const [valdKategori, setValdKategori] = useState("")
+    const [valdKategori, setValdKategori] = useState(() => {
+        return sessionStorage.getItem('valdKategori') || "";
+    });
     const [menuItem, setMenuItem] = useState({})
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -41,6 +41,19 @@ export default function Meny() {
     const [showModal, setShowModal] = useState(false);
     const [activeProduct, setActiveProduct] = useState(null);
     const [cartMessage, setCartMessage] = useState('');
+
+    useEffect(() => {
+        sessionStorage.setItem('valdKategori', valdKategori);
+    }, [valdKategori]);
+
+    // Save and restore scroll position on the menu page
+    useEffect(() => {
+        const handleScroll = () => {
+            sessionStorage.setItem('menyScroll', window.scrollY);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     // Persist cart to localStorage whenever it changes
     useEffect(() => {
@@ -57,6 +70,29 @@ export default function Meny() {
             .then(data => {
                 setMenuItem(data)
                 setLoading(false)
+
+                // Återställ scrollposition exakt till elementet
+                setTimeout(() => {
+                    const lastCat = sessionStorage.getItem('lastViewedCategory');
+                    if (lastCat) {
+                        const el = document.getElementById(lastCat);
+                        if (el) {
+                            const y = el.getBoundingClientRect().top + window.scrollY - 100;
+                            window.scrollTo({ top: y, behavior: 'instant' });
+                            sessionStorage.removeItem('lastViewedCategory'); // Töm efter vi använt den
+                            return;
+                        }
+                    }
+
+                    // Fallback till scrollY om inget element fanns
+                    const scrollY = sessionStorage.getItem('menyScroll');
+                    if (scrollY) {
+                        window.scrollTo({
+                            top: parseInt(scrollY, 10),
+                            behavior: "instant"
+                        });
+                    }
+                }, 100);
             })
             .catch(err => {
                 console.error("Fel vid hämtning:", err)
@@ -74,7 +110,7 @@ export default function Meny() {
         setShowModal(false);
 
         setCart(prev => {
-            
+
             const key = `${productId}-${type}`;
             const existing = prev.find(item => item.key === key);
             let updated;
@@ -93,14 +129,6 @@ export default function Meny() {
             }
             return updated;
         });
-
-        // Synka till databasen 
-        // Använder userId=1 som gästanvändare då inloggning ej är implementerat
-        fetch(`${API}/cart/addProduct`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userId: 1, productId, amount: 1 })
-        }).catch(err => console.warn('Backend-synk misslyckades:', err));
 
         showMessage('Tillagd i varukorgen!');
     };
