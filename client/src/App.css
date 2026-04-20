@@ -207,49 +207,115 @@ a {
   color: white;
 }
 
-.about-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
+/* =========================
+   ABOUT PAGE ELITE (Layout Redesign)
+========================= */
+.about-page-elite {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(10, 10, 15, 0.8), rgba(20, 20, 30, 0.9)),
+    url("/imges/wood.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  padding: 6rem 0;
+  color: white;
 }
 
-.restaurant-highlight {
-  color: var(--primary, #ff7a00);
-  font-size: 5rem;
-  font-weight: 800;
-  text-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
-  margin-bottom: 2rem;
+.elite-title {
+  color: white;
+  font-family: inherit;
+  letter-spacing: -0.5px;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
-.about-logo {
-  width: 14rem;
-  margin-bottom: 3rem;
-  border-radius: 2rem;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+.title-separator {
+  width: 60px;
+  height: 4px;
+  background-color: var(--primary, #ff7a00); 
+  border-radius: 2px;
 }
 
-.about-text {
-  font-size: 1.3rem;
-  font-weight: 400;
-  line-height: 1.8;
-  max-width: 800px;
-  color: #e0e0e8;
-  background: rgba(20, 20, 30, 0.6);
-  padding: 3rem;
-  border-radius: 1.5rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.05);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+.elite-subtitle {
+  font-size: 1.25rem;
+  color: #dcdcdc;
+  line-height: 1.6;
 }
 
-.about-welcome {
-  margin-top: 2.5rem;
+.elite-section-title {
   font-size: 2.2rem;
+  color: white;
+  font-family: Georgia, serif;
+}
+
+.elite-text {
+  font-size: 1.1rem;
+  color: #e0e0e8;
+  line-height: 1.8;
+}
+
+.about-welcome-elite {
+  font-family: Georgia, serif;
+  font-size: 1.8rem;
   font-style: italic;
-  font-weight: 600;
-  color: var(--primary, #ff7a00);
+  color: var(--primary, #ff7a00); 
+}
+
+/* Collage Styles */
+.image-collage-wrapper {
+  position: relative;
+  min-height: 520px;
+  width: 100%;
+}
+
+.collage-img-1, .collage-img-2 {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 10px;
+  transition: transform 0.5s ease;
+}
+
+.collage-img-1 {
+  width: 75%;
+  height: 420px;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.collage-img-2 {
+  width: 60%;
+  height: 340px;
+  bottom: 0;
+  right: -10px;
+  z-index: 20;
+  border: 8px solid rgba(22, 22, 33, 0.95); 
+  border-radius: 8px;
+}
+
+.collage-img-1 img, .collage-img-2 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.collage-img-1:hover, .collage-img-2:hover {
+  transform: scale(1.02);
+}
+
+@media (max-width: 991px) {
+  .image-collage-wrapper {
+    min-height: 450px;
+  }
+  .collage-img-1 { height: 380px; }
+  .collage-img-2 { height: 300px; width: 60%; }
+}
+
+@media (max-width: 768px) {
+  .about-page-elite {
+    padding: 3rem 1rem;
+  }
 }
 
 /* =========================

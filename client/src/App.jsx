@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Link, NavLink, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { API } from './utils/api'
 import Home from './pages/Home.jsx'
 import About from './pages/About.jsx'
 import Menu from './pages/Meny.jsx'
@@ -21,6 +22,9 @@ function ScrollToTop() {
 
 function App() {
   const [showFacebookModal, setShowFacebookModal] = useState(false);
+  const [showHoursModal, setShowHoursModal] = useState(false);
+  const [openingHours, setOpeningHours] = useState([]);
+  
   // Läser kundvagn från localStorage så att räknaren syns i navbaren på alla sidor
   const [cartCount, setCartCount] = useState(0);
 
@@ -32,6 +36,12 @@ function App() {
       } catch { setCartCount(0); }
     };
     updateCount();
+    
+    // Hämta öppettider en gång vid laddning
+    fetch(`${API}/settings/openingHours`)
+      .then(res => res.json())
+      .then(data => setOpeningHours(data))
+      .catch(err => console.error("Kunde inte hämta öppettider:", err));
     // Lyssnar på ändringar från Meny.jsx via storage-event
     window.addEventListener('storage', updateCount);
     
@@ -69,6 +79,9 @@ function App() {
                 </li>
                 <li>
                   <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active fw-semibold' : ''}`} to="/about">Om oss</NavLink>
+                </li>
+                <li className="nav-item">
+                  <a href="#" className={`nav-link ${showHoursModal ? 'active fw-semibold' : ''}`} onClick={(e) => { e.preventDefault(); setShowHoursModal(true); }}>Öppettider</a>
                 </li>
                 {/* Kundvagn alltid synlig i navbaren */}
                 <li className="nav-item cheackout-stats">
@@ -110,6 +123,14 @@ function App() {
                     className="footer-badge interactive gap-2"
                   >
                     <i className="fa-brands fa-facebook fs-5" style={{ color: '#1877F2' }}></i> Facebook
+                  </a>
+                  <a
+                    href="https://www.google.com/maps/dir/?api=1&destination=ROTTNEBYVÄG+2,+Falun,+Sweden"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-badge interactive gap-2"
+                  >
+                    <i className="fa-solid fa-location-dot fs-5" style={{ color: '#ea4335' }}></i> Hitta hit
                   </a>
                 </div>
 
@@ -155,6 +176,45 @@ function App() {
                   allowFullScreen={true}
                   allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
                 </iframe>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Öppettider Modal */}
+        {showHoursModal && (
+          <div className="modal-backdrop" style={{
+            position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+            backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 1050,
+            display: 'flex', justifyContent: 'center', alignItems: 'center'
+          }} onClick={() => setShowHoursModal(false)}>
+            <div className="modal-content text-start p-4" style={{
+              background: 'linear-gradient(145deg, #1a1a24, #2a2a36)', borderRadius: '1rem', 
+              position: 'relative', width: '350px', maxWidth: '95vw', 
+              border: '1px solid rgba(255,122,0,0.3)', boxShadow: '0 15px 50px rgba(0,0,0,0.6)'
+            }} onClick={e => e.stopPropagation()}>
+              <button
+                className="btn-close btn-close-white"
+                style={{ position: 'absolute', top: '15px', right: '15px', zIndex: 10 }}
+                onClick={() => setShowHoursModal(false)}>
+              </button>
+              <h4 className="mb-4 text-center fw-bold" style={{ color: 'var(--primary, #ff7a00)' }}>
+                <i className="fa-regular fa-clock me-2"></i>Öppettider
+              </h4>
+              <div className="d-flex flex-column gap-3">
+                {openingHours && openingHours.length > 0 ? (
+                  openingHours.map((dayObj, i) => (
+                    <div key={i} className="d-flex justify-content-between align-items-center" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.5rem' }}>
+                      <span className="text-light fw-semibold">{dayObj.day}</span>
+                      <span className="text-white opacity-75">{dayObj.hours}</span>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-white text-center opacity-75">Kunde inte ladda öppettider.</p>
+                )}
+              </div>
+              <div className="mt-4 text-center">
+                 <button onClick={() => setShowHoursModal(false)} className="btn btn-outline-light rounded-pill px-4 btn-sm">Stäng</button>
               </div>
             </div>
           </div>

@@ -7,6 +7,7 @@ const app = express();
 
 // Importera rutter enligt arkitekturdiagrammet 
 var productRoutes = require('./routes/productRoutes');
+var settingsRoutes = require('./routes/settingsRoutes');
 
 
 // Middleware
@@ -20,6 +21,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // API-rutter enligt specifikation 
 app.use('/api/products', productRoutes); // Hanterar CRUD för produkter
+app.use('/api/settings', settingsRoutes); // Hanterar inställningar (öppettider)
 // Enkel felhantering 
 app.use((err, req, res, next) => {
   console.error(err.stack);

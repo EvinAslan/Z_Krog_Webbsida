@@ -1,0 +1,32 @@
+{
+  "openingHours": [
+    {
+      "day": "Måndag",
+      "hours": "11:00 - 21:00"
+    },
+    {
+      "day": "Tisdag",
+      "hours": "11:00 - 21:00"
+    },
+    {
+      "day": "Onsdag",
+      "hours": "11:00 - 21:00"
+    },
+    {
+      "day": "Torsdag",
+      "hours": "11:00 - 21:00"
+    },
+    {
+      "day": "Fredag",
+      "hours": "11:00 - 22:00"
+    },
+    {
+      "day": "Lördag",
+      "hours": "12:00 - 22:00"
+    },
+    {
+      "day": "Söndag",
+      "hours": "12:00 - 21:00"
+    }
+  ]
+}

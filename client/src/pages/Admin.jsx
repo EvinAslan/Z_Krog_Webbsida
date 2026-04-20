@@ -6,6 +6,7 @@ import ProductModal from '../components/ProductModal';
 const Admin = () => {
   const [menuData, setMenuData] = useState({});
   const [rawProducts, setRawProducts] = useState([]);
+  const [openingHours, setOpeningHours] = useState([]);
   const [message, setMessage] = useState('');
   const [editTarget, setEditTarget] = useState(null);
 
@@ -19,16 +20,41 @@ const Admin = () => {
 
   const fetchData = async () => {
     try {
-      const [menuRes, prodRes] = await Promise.all([
+      const [menuRes, prodRes, hoursRes] = await Promise.all([
         fetch(`${API_URL}/menu`),
-        fetch(API_URL)
+        fetch(API_URL),
+        fetch(`${API}/settings/openingHours`)
       ]);
       setMenuData(await menuRes.json());
       setRawProducts(await prodRes.json());
+      setOpeningHours(await hoursRes.json() || []);
     } catch (err) {
       console.error("Fel vid hämtning:", err);
-      setMessage("Kunde inte hämta menydata.");
+      setMessage("Kunde inte hämta all data.");
     }
+  };
+  
+  const handleSaveHours = async () => {
+    try {
+      const res = await fetch(`${API}/settings/openingHours`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('adminToken') },
+        body: JSON.stringify({ openingHours })
+      });
+      if (res.ok) {
+        setMessage('Öppettider sparade!');
+      } else {
+        setMessage('Kunde inte spara öppettider.');
+      }
+    } catch (err) {
+      setMessage('Ett fel uppstod vid sparning.');
+    }
+  };
+
+  const handleHourChange = (index, value) => {
+    const newHours = [...openingHours];
+    newHours[index].hours = value;
+    setOpeningHours(newHours);
   };
 
 
@@ -113,7 +139,13 @@ const Admin = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Radera produkt?")) return;
     try {
-      const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' },{headers: { 'Content-Type': 'application/json','Authorization': localStorage.getItem('adminToken')},});
+      const res = await fetch(`${API_URL}/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('adminToken')
+        }
+      });
       if (res.ok) fetchData();
     } catch (err) { setMessage('Kunde inte radera.'); }
   };
@@ -121,7 +153,10 @@ const Admin = () => {
   const handleDeleteCategory = async (catName, catTitle) => {
     const productsToDelete = rawProducts.filter(p => p.category === catTitle);
     if (window.confirm(`Radera hela prisklassen "${catTitle}"?`)) {
-      await Promise.all(productsToDelete.map(p => fetch(`${API_URL}/${p.id}`, { method: 'DELETE' })));
+      await Promise.all(productsToDelete.map(p => fetch(`${API_URL}/${p.id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': localStorage.getItem('adminToken') }
+      })));
       fetchData();
     }
   };
@@ -233,6 +268,32 @@ const Admin = () => {
           </div>
         ))}
       </div>
+
+      {/* Opening Hours Administration */}
+      {openingHours && openingHours.length > 0 && (
+        <div className="mt-5">
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <h2>Öppettider Administration</h2>
+            <button className="btn btn-success" onClick={handleSaveHours}>Spara öppettider</button>
+          </div>
+          <div className="card shadow-sm border-0 bg-light p-4">
+             <div className="row">
+               {openingHours.map((dayObj, index) => (
+                 <div key={index} className="col-md-4 mb-3">
+                   <label className="form-label fw-bold text-dark">{dayObj.day}</label>
+                   <input 
+                     type="text" 
+                     className="form-control text-dark" 
+                     value={dayObj.hours} 
+                     onChange={(e) => handleHourChange(index, e.target.value)} 
+                     placeholder="t.ex. 11:00 - 21:00"
+                   />
+                 </div>
+               ))}
+             </div>
+          </div>
+        </div>
+      )}
 
       <CategoryModal
         editTarget={editTarget}
