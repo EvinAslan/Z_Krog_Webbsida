@@ -130,7 +130,7 @@ function App() {
                     rel="noopener noreferrer"
                     className="footer-badge interactive gap-2"
                   >
-                    <i className="fa-solid fa-location-dot fs-5" style={{ color: '#ea4335' }}></i> Hitta hit
+                    <i className="fa-solid fa-location-dot fs-5" style={{ color: '#ea4335' }}></i> Hitta oss
                   </a>
                 </div>
 
