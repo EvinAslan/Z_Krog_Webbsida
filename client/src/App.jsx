@@ -164,18 +164,27 @@ function App() {
                 style={{ position: 'absolute', top: '15px', right: '15px', zIndex: 10 }}
                 onClick={() => setShowFacebookModal(false)}>
               </button>
-              <h5 className="text-white mb-3 text-center fw-bold mt-2">Senaste från Facebook</h5>
+              <h5 className="text-white mb-1 text-center fw-bold mt-2">Senaste från Facebook</h5>
+              <p className="text-center text-light opacity-75 mb-3" style={{ fontSize: '0.95rem' }}>
+                Klicka i rutan eller <a href="https://www.facebook.com/falunzkrogen" target="_blank" rel="noopener noreferrer" style={{ color: '#4d95f7', textDecoration: 'none', fontWeight: 'bold' }}>besök vår sida för att se mer!</a>
+              </p>
               <div style={{ background: 'white', borderRadius: '8px', overflow: 'hidden' }}>
                 <iframe
-                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ffalunzkrogen&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"
-                  width="340"
-                  height="500"
-                  style={{ border: 'none', overflow: 'hidden' }}
+                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ffalunzkrogen&tabs=timeline&width=500&height=650&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"
+                  width="500"
+                  height="650"
+                  style={{ border: 'none', overflow: 'hidden', maxWidth: '100%' }}
                   scrolling="no"
                   frameBorder="0"
                   allowFullScreen={true}
                   allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
                 </iframe>
+              </div>
+              <div className="mt-4 text-center">
+                 <a href="https://www.facebook.com/falunzkrogen" target="_blank" rel="noopener noreferrer" className="btn btn-primary rounded-pill px-5 py-3 fw-bolder shadow-lg" style={{ backgroundColor: '#1877F2', border: 'none', fontSize: '1.15rem', letterSpacing: '1px', textTransform: 'uppercase', transition: 'all 0.3s' }}>
+                   <i className="fa-brands fa-facebook me-2 fs-4" style={{ verticalAlign: 'middle' }}></i> 
+                   KLICKA HÄR FÖR VÅR FACEBOOK 👉
+                 </a>
               </div>
             </div>
           </div>

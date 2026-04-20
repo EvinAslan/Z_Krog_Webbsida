@@ -86,13 +86,7 @@ a {
 ========================= */
 .hero-content {
   min-height: 100vh;
-  background:
-    linear-gradient(rgba(10, 10, 15, 0.7), rgba(15, 15, 20, 0.85)),
-    url("/imges/wood.webp");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
+  background-color: #0f0f14;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -100,13 +94,75 @@ a {
   text-align: center;
   padding: 5rem 2rem;
   position: relative;
+  overflow: hidden;
+}
+
+/* =========================
+   HERO VIDEO SLIDER (Ken Burns)
+========================= */
+.hero-video-slider {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-slide {
+  position: absolute;
+  top: -10%; left: -10%; right: -10%; bottom: -10%; /* give room for scale & pan */
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  animation: heroKenBurns 24s ease-in-out infinite; 
+}
+
+.hero-slide:nth-child(1) {
+  background-image: url("/imges/slide1.png");
+  animation-delay: 0s;
+}
+
+.hero-slide:nth-child(2) {
+  background-image: url("/imges/slide2.png");
+  animation-delay: 8s;
+}
+
+.hero-slide:nth-child(3) {
+  background-image: url("/imges/slide3.jpg");
+  animation-delay: 16s;
+}
+
+@keyframes heroKenBurns {
+  0% {
+    opacity: 0;
+    transform: scale(1) translate(0, 0);
+  }
+  10% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 1;
+  }
+  43% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.15) translate(-1%, -1%);
+  }
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(rgba(10, 10, 15, 0.35), rgba(15, 15, 20, 0.75));
+  z-index: 1;
 }
 
 .restaurant-name {
-  font-size: 6rem;
+  font-size: 4.5rem;
   font-weight: 900;
   color: #fff;
-  letter-spacing: 0.1rem;
+  letter-spacing: 0.15rem;
   text-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
   margin-bottom: 0.5rem;
   animation: fadeDown 1s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -123,7 +179,8 @@ a {
 }
 
 .restaurant-rights {
-  font-size: 1.5rem;
+  /* Nu ersatt med en modern badge i Home.jsx, men vi behåller klassen fall-back */
+  font-size: 1.2rem;
   font-weight: 600;
   color: #ffc285;
   text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
@@ -176,6 +233,19 @@ a {
   transform: scale(1.05) rotate(3deg);
 }
 
+.z-logo-center {
+  width: 9rem;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(255, 122, 0, 0.3), 0 10px 25px rgba(0,0,0,0.5);
+  border: 2px solid rgba(255,255,255,0.1);
+  transition: transform 0.4s ease;
+}
+
+.z-logo-center:hover {
+  transform: scale(1.08) rotate(5deg);
+}
+
 @keyframes fadeDown {
   from { opacity: 0; transform: translateY(-30px); }
   to { opacity: 1; transform: translateY(0); }
@@ -203,7 +273,7 @@ a {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  padding: 5rem 2rem;
+  padding: 1.5rem 1rem 5rem 1rem;
   color: white;
 }
 

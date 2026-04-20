@@ -28,5 +28,9 @@
       "day": "Söndag",
       "hours": "12:00 - 21:00"
     }
-  ]
+  ],
+  "campaign": {
+    "active": true,
+    "imageUrl": "/imges/kampanj.jpg"
+  }
 }

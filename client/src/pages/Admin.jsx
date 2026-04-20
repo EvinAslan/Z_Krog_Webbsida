@@ -33,7 +33,7 @@ const Admin = () => {
       setMessage("Kunde inte hämta all data.");
     }
   };
-  
+
   const handleSaveHours = async () => {
     try {
       const res = await fetch(`${API}/settings/openingHours`, {
@@ -58,15 +58,15 @@ const Admin = () => {
   };
 
 
-  useEffect(() => { 
-    if(localStorage.getItem('adminToken') !== 'pizzakung123') {
+  useEffect(() => {
+    if (localStorage.getItem('adminToken') !== 'pizzakung123') {
       window.location.href = '/singIn'; // Sparka ut obehöriga
     } else {
-      fetchData(); 
+      fetchData();
     }
   }, []);
 
-  
+
 
   const handleEditCategory = (catName, catTitle) => {
     const catInfo = rawProducts.find(p => p.title === "Kategori Info" && p.category === catTitle);
@@ -89,7 +89,7 @@ const Admin = () => {
     const isUpdate = !!editTarget;
     const url = isUpdate ? `${API_URL}/${editTarget.id}` : API_URL;
     const method = isUpdate ? 'PUT' : 'POST';
-    
+
 
     let payload = {};
 
@@ -122,7 +122,7 @@ const Admin = () => {
     try {
       const res = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json','Authorization': localStorage.getItem('adminToken')},
+        headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('adminToken') },
         body: JSON.stringify(payload)
       });
 
@@ -163,8 +163,8 @@ const Admin = () => {
 
   const closeModals = () => {
     setEditTarget(null);
-    setCatForm({ name: '', title: '', p1: 0, p2: 0, p3: 0,p4:0, img: '' });
-    setProdForm({ selectedName: '', selectedTitle: '', title: '', desc: '', cp1: 0, cp2: 0, cp3: 0,cp4:0, cImg: '' });
+    setCatForm({ name: '', title: '', p1: 0, p2: 0, p3: 0, p4: 0, img: '' });
+    setProdForm({ selectedName: '', selectedTitle: '', title: '', desc: '', cp1: 0, cp2: 0, cp3: 0, cp4: 0, cImg: '' });
     document.querySelectorAll('.modal').forEach(el => {
       const m = window.bootstrap.Modal.getInstance(el);
       if (m) m.hide();
@@ -213,7 +213,7 @@ const Admin = () => {
                 <div>
                   <h5 className="mb-0 fw-bold">{val[1]}</h5>
                   <small className="text-muted text-uppercase" style={{ fontSize: '0.7rem' }}>
-                    Filter: <strong>{val[0]}</strong> | {val[2].price1}:- / {val[2].price2}:- / {val[2].price3}:- / {val[2].price4}:- 
+                    Filter: <strong>{val[0]}</strong> | {val[2].price1}:- / {val[2].price2}:- / {val[2].price3}:- / {val[2].price4}:-
                   </small>
                 </div>
                 <div className="btn-group">
@@ -236,7 +236,7 @@ const Admin = () => {
                       <div>
                         <div className="fw-bold">{item[0]}</div>
                         <div className="small text-muted">{item[1]}</div>
-                        {(realProd.custom_price1 > 0 || realProd.custom_price2 > 0 ||  realProd.custom_price3 > 0 || realProd.custom_price4 > 0) && (
+                        {(realProd.custom_price1 > 0 || realProd.custom_price2 > 0 || realProd.custom_price3 > 0 || realProd.custom_price4 > 0) && (
                           <div className="small text-success fw-bold">
                             Individuellt pris: {realProd.custom_price1}:- / {realProd.custom_price2}:- / {realProd.custom_price3}:- / {realProd.custom_price4}:-
                           </div>
@@ -259,7 +259,7 @@ const Admin = () => {
                           new window.bootstrap.Modal(document.getElementById('prodModal')).show();
                         }}>Redigera</button>
                         <button className="btn btn-sm btn-danger rounded-circle" onClick={() => handleDelete(realProd.id)}>&times;</button>
-                      </div> 
+                      </div>
                     </li>
                   );
                 })}
@@ -277,20 +277,20 @@ const Admin = () => {
             <button className="btn btn-success" onClick={handleSaveHours}>Spara öppettider</button>
           </div>
           <div className="card shadow-sm border-0 bg-light p-4">
-             <div className="row">
-               {openingHours.map((dayObj, index) => (
-                 <div key={index} className="col-md-4 mb-3">
-                   <label className="form-label fw-bold text-dark">{dayObj.day}</label>
-                   <input 
-                     type="text" 
-                     className="form-control text-dark" 
-                     value={dayObj.hours} 
-                     onChange={(e) => handleHourChange(index, e.target.value)} 
-                     placeholder="t.ex. 11:00 - 21:00"
-                   />
-                 </div>
-               ))}
-             </div>
+            <div className="row">
+              {openingHours.map((dayObj, index) => (
+                <div key={index} className="col-md-4 mb-3">
+                  <label className="form-label fw-bold text-dark">{dayObj.day}</label>
+                  <input
+                    type="text"
+                    className="form-control text-dark"
+                    value={dayObj.hours}
+                    onChange={(e) => handleHourChange(index, e.target.value)}
+                    placeholder="t.ex. 11:00 - 21:00"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}

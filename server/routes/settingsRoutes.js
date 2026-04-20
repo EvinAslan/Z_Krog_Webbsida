@@ -14,7 +14,7 @@ const verifyAdmin = (req, res, next) => {
 router.get('/openingHours', (req, res) => {
   try {
     if (!fs.existsSync(SETTINGS_FILE)) {
-      return res.json([]); 
+      return res.json([]);
     }
     const data = JSON.parse(fs.readFileSync(SETTINGS_FILE, 'utf8'));
     res.json(data.openingHours || []);
@@ -38,7 +38,7 @@ router.put('/openingHours', verifyAdmin, (req, res) => {
 
     currentSettings.openingHours = openingHours;
     fs.writeFileSync(SETTINGS_FILE, JSON.stringify(currentSettings, null, 2), 'utf8');
-    
+
     res.json({ message: "Öppettider sparade!", openingHours });
   } catch (error) {
     res.status(500).json({ message: "Kunde inte spara inställningar.", error: error.message });
